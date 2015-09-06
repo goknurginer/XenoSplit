@@ -1,0 +1,2 @@
+# XenoSplit
+Mapping pipeline 
