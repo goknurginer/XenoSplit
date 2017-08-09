@@ -15,5 +15,22 @@ XenoSplit is a simple and effective method, which improves the accuracy and sens
 ## XenoSplit perfomance:
 ![NumMapped](https://github.com/goknurginer/XenoSplit/blob/master/NumMapped.png)
 
-XenoSplit removes the reads which was mistakenly mapped to human. False positive reads are trimmed by using XenoSplit.
+XenoSplit removes the reads which was mistakenly mapped to human. False positive reads are trimmed by using XenoSplit without comprimising true positives.
 ![NumMapped_Splitter](https://github.com/goknurginer/XenoSplit/blob/master/NumMapped_Splitter.png)
+
+
+## How to run XenoSplit
+python xenosplit.py --help
+
+Step 1. Align your fastq files to human and mouse genome first. (human.bam and mouse.bam will be produced)
+Step 2. XenoSplit your human.bam and mouse.bam files (compare those two files' mapping scores for each read)
+
+### Using XenoSplit with Subread and Subjunc (http://subread.sourceforge.net/)
+python xenosplit.py --out1 --out1 human_splitted.bam human.bam mouse.bam
+
+### Using XenoSplit with Bowtie2
+python XenoSplit_bowtie.py --out1 human_splitted.bam human.bam mouse.bam
+
+### XenoSplit arguments
+python XenoSplit.py --count human.bam mouse.bam > counts.txt
+
