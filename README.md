@@ -1,7 +1,9 @@
 # XenoSplit
 Mapping pipeline 
-Author: Aaron Lun - Göknur Giner
+Author: Göknur Giner & Aaron Lun
 
-XenoSplit is a solution to bioinformatics challenges of transcriptional profiling of circulating tumor cells. Circulating tumor cells (CTCs) are cancer cells that can detach from the primary tumor and enter the blood circulation. Most cancer cells that leave the tumor are destroyed by immune system, however some survive and can migrate to other tissues. They can then become phenotypically different and cause micro or macro metastasis. Thus, research into CTCs is crucial for developing more effective therapies against metastasized cancer. In this project we had a combination of breast cancer tumor and circulating tumor cell samples. These samples were obtained from human tumor xenografts in immunodeficient mice. Xenograft mouse models are known to be challenging as they suffer from the scarcity of human cells. The major difficulty of working with these xenografts is the mixed human and mouse information. Most of the CTC samples mapped to the mouse genome with higher mapping proportions than they mapped to human genome.
+XenoSplit is a solution to bioinformatics challenges of transcriptional profiling of patient derived xenografts (PDXs). Xenograft mouse models are known to be challenging as they suffer from the scarcity of human cells. The major challenge of working with these xenografts is the mixed human and mouse information. To classify ambiguous reads, XenoSplit compares human mapping scores with mouse genome mapping scores. First, reads were mapped to human and mouse genomes seperately. Then reads were allocated to a species based on the number of correctly aligned bases. This identifies a sufficient number of human reads to proceed with downstream analyses.
 
-We can outline the bioinformatics strategy called XenoSplit adopted for this data: A major challenge is to distinguish human from mouse reads. To classify ambiguous reads, XenoSplit compares human mapping scores with mouse genome mapping scores. First, reads were mapped to human and mouse genomes. Then reads were allocated to a species based on the number of correctly aligned bases. This identifies a sufficient number of human reads to proceed with downstream analyses.
+XenoSplit is a simple and effective method, which improves the accuracy and sensitivity of detecting the reads originated from the graft tissue. XenoSplit is a fast computational tool and it is freely available for non commercial use.
+ 
+ 
