@@ -6,12 +6,14 @@ XenoSplit is a solution to bioinformatics challenges of transcriptional profilin
 
 XenoSplit is a simple and effective method, which improves the accuracy and sensitivity of detecting the reads originated from the graft tissue. XenoSplit is a fast computational tool and it is freely available for non commercial use.
 
-XenoSplit flow chart:
+## XenoSplit flow chart:
+![flow1](https://github.com/goknurginer/XenoSplit/blob/master/flow1.png)
 
-![alt text](https://raw.githubusercontent.com/goknurginer/XenoSplit/flow1.png)
-![alt text](https://raw.githubusercontent.com/goknurginer/XenoSplit/flow2.png)
+## XenoSplit arguments:
+![flow2](https://github.com/goknurginer/XenoSplit/blob/master/flow2.png)
 
-XenoSplit perfomance:
+## XenoSplit perfomance:
+![NumMapped](https://github.com/goknurginer/XenoSplit/blob/master/NumMapped.png)
 
-![alt text](https://raw.githubusercontent.com/goknurginer/XenoSplit/NumMapped.png)
-![alt text](https://raw.githubusercontent.com/goknurginer/XenoSplit/NumMapped_Splitter.png)
+XenoSplit removes the reads which was mistakenly mapped to human. False positive reads are trimmed by using XenoSplit.
+![NumMapped_Splitter](https://github.com/goknurginer/XenoSplit/blob/master/NumMapped_Splitter.png)
