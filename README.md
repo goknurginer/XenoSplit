@@ -23,14 +23,23 @@ XenoSplit removes the reads which was mistakenly mapped to human. False positive
 python xenosplit.py --help
 
 Step 1. Align your fastq files to human and mouse genome first. (human.bam and mouse.bam will be produced)
-Step 2. XenoSplit your human.bam and mouse.bam files (compare those two files' mapping scores for each read)
+Step 2. Input human.bam and mouse.bam files into xenosplit (compare those two files' mapping scores for each read) and save human_splitted files (if you are interested in keeping human reads) or keep both human_splitted and mouse_splitted at the same time using --out2 argument)
+
+Optional steps
+1. Create a counts.txt file to explore the differences in quality scores of each read.
+2. Set a --min argument to keep the reads with a minimum difference in matches for assignment to either human or mouse alignments. Generally, it is set to 0, 1 or 2. The user might set it to a larger value, however, it is shown that the larger values don't improve the specificity of XenoSplit significantly.
+
 
 ### Using XenoSplit with Subread and Subjunc (http://subread.sourceforge.net/)
-python xenosplit.py --out1 --out1 human_splitted.bam human.bam mouse.bam
+python xenosplit.py --out1 human_splitted.bam human.bam mouse.bam
+python xenosplit.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
 
 ### Using XenoSplit with Bowtie2
-python XenoSplit_bowtie.py --out1 human_splitted.bam human.bam mouse.bam
+python xenoSplit_bowtie.py --out1 human_splitted.bam human.bam mouse.bam
+python xenoSplit_bowtie.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
 
-### XenoSplit arguments
-python XenoSplit.py --count human.bam mouse.bam > counts.txt
+### Using xenoSplit argument --count
+python xenoSplit.py --count human.bam mouse.bam > counts.txt
 
+### Using XenoSplit argument --min
+python xenoSplit.py --min 10 --out1 human_splitted.bam human.bam mouse.bam
