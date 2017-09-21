@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser(description='Compare two BAM files for the same
 parser.add_argument('bam1', type=str, help='first input BAM file')
 parser.add_argument('bam2', type=str, help='second input BAM file')
 parser.add_argument('--count', dest='count', action='store_true', help='switch to reporting mode')
+parser.add_argument('--min', dest='min', type=int, help='minimum difference in matches for assignment to either file', default=1)
 parser.add_argument('--out1', type=str, dest='out1', help='first output BAM file', default='out1.bam')
 parser.add_argument('--out2', type=str, dest='out2', help='second output BAM file', default='out2.bam')
 
@@ -26,7 +27,7 @@ def getmatch(read):
         return 0
     mmatch = 0
     for op, num in read.cigar:
-        if op == 0:
+        if op == 0 or op == 1 or op == 2:
              mmatch += num
     tags=dict(read.tags)
     if "NM" in tags:
@@ -57,9 +58,9 @@ while 1:
     if docount:
         print str(out1)+"\t"+str(out2)
         continue
-    if out1 > out2:
+    if out1 - out2 >= args.min:
         oh1.write(read1)
-    elif out1 < out2:
+    elif out2 - out1 >= args.min:
         oh2.write(read2)
     
 fh1.close()
