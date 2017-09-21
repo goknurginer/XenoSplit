@@ -31,15 +31,22 @@ Optional steps
 
 
 ### Using XenoSplit with Subread and Subjunc (http://subread.sourceforge.net/)
+Use the latest version of xenosplit.py
 python xenosplit.py --out1 human_splitted.bam human.bam mouse.bam
 python xenosplit.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
 
-### Using XenoSplit with Bowtie2
-python xenoSplit_bowtie.py --out1 human_splitted.bam human.bam mouse.bam
-python xenoSplit_bowtie.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
+### Using XenoSplit with Bowtie2 and Tophat (http://bowtie-bio.sourceforge.net/index.shtml)
+Use xenosplit_bowtie2.py
+python xenosplit_bowtie.py --out1 human_splitted.bam human.bam mouse.bam
+python xenosplit_bowtie.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
+
+### Using XenoSplit with Star (https://github.com/alexdobin/STAR)
+Use xenosplit_star.py
+python xenosplit_star.py --out1 human_splitted.bam human.bam mouse.bam
+python xenosplit_star.py --out1 human_splitted.bam --out2 mouse_splitted.bam human.bam mouse.bam
 
 ### Using xenoSplit argument --count
-python xenoSplit.py --count human.bam mouse.bam > counts.txt
+python xenosplit.py --count human.bam mouse.bam > counts.txt
 
 ### Using XenoSplit argument --min
-python xenoSplit.py --min 10 --out1 human_splitted.bam human.bam mouse.bam
+python xenosplit.py --min 10 --out1 human_splitted.bam human.bam mouse.bam
