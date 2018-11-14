@@ -1,18 +1,18 @@
-# Title: XenoSplit code
-# Author: Aaron Lun and Goknur Giner
 #!/usr/bin/env python
 
 import pysam
 import sys
 import argparse
 
-parser = argparse.ArgumentParser(description='Compare two BAM files for the same reads and allocate them into new files based on matches')
+parser = argparse.ArgumentParser(description='Compare two BAM files for the same reads and allocate them into new files based on matches',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 parser.add_argument('bam1', type=str, help='first input BAM file')
 parser.add_argument('bam2', type=str, help='second input BAM file')
 parser.add_argument('--count', dest='count', action='store_true', help='switch to reporting mode')
 parser.add_argument('--min', dest='min', type=int, help='minimum difference in matches for assignment to either file', default=1)
 parser.add_argument('--out1', type=str, dest='out1', help='first output BAM file', default='out1.bam')
 parser.add_argument('--out2', type=str, dest='out2', help='second output BAM file', default='out2.bam')
+parser.add_argument('--aligner', type=str, dest='aligner', help='aligner type', choices=['subread','subjunc','star','tophat','bowtie'], default='subread')
 
 args = parser.parse_args()
 docount = args.count
@@ -22,16 +22,26 @@ if not docount:
     oh1 = pysam.Samfile(args.out1, "wb", template=fh1)
     oh2 = pysam.Samfile(args.out2, "wb", template=fh2)
 
-def getmatch(read):
+mismatch_flag={
+    "subread" : "NM",
+    "subjunc" : "NM",
+    "star" : "nM",
+    "bowtie" : "XM",
+    "tophat" : "XM" 
+}[args.aligner]
+
+def getmatch(read, flag):
     if read.is_unmapped:
         return 0
     mmatch = 0
     for op, num in read.cigar:
-        if op == 0 or op == 1 or op == 2:
+        if op == 0 or op == 1:
              mmatch += num
+        elif op == 2:
+             mmatch -= num
     tags=dict(read.tags)
-    if "NM" in tags:
-        mmatch -= tags["NM"]
+    if flag in tags:
+        mmatch -= tags[flag]
     return mmatch
 
 fail = 0
@@ -53,8 +63,8 @@ while 1:
     if read1.is_unmapped and read2.is_unmapped:
         continue
         
-    out1=getmatch(read1)
-    out2=getmatch(read2)
+    out1=getmatch(read1, mismatch_flag)
+    out2=getmatch(read2, mismatch_flag)
     if docount:
         print str(out1)+"\t"+str(out2)
         continue
