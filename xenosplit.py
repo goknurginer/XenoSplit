@@ -11,7 +11,7 @@ parser.add_argument('bam2', type=str, help='second input BAM file')
 parser.add_argument('--count', dest='count', action='store_true', help='switch to reporting mode')
 parser.add_argument('--min', dest='min', type=int, help='minimum difference in matches for assignment to either file', default=1)
 parser.add_argument('--out', type=str, dest='out', help='first output BAM file', default='out.bam')
-parser.add_argument('--aligner', type=str, dest='aligner', help='aligner type', choices=['subread','subjunc','star','tophat','bowtie'], default='subread')
+parser.add_argument('--aligner', type=str, dest='aligner', help='aligner type', choices=['subread','subjunc','star','tophat','bowtie','bwa'], default='subread')
 parser.add_argument('--pairedEnd', dest='pairedEnd', action='store_true', help='switch to pairedEnd mode so the mapping scores will be computed using pairs')
 
 args = parser.parse_args()
@@ -26,7 +26,8 @@ mismatch_flag={
     "subjunc" : "NM",
     "star" : "nM",
     "bowtie" : "XM",
-    "tophat" : "XM" 
+    "tophat" : "XM",
+    "baw" : "XM"
 }[args.aligner]
 
 def getmatch(read, flag):
