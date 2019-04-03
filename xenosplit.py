@@ -6,18 +6,18 @@ import argparse
 
 parser = argparse.ArgumentParser(description='Compare two BAM files for the same reads and allocate them into new files based on matches',
     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-parser.add_argument('bam1', type=str, help='first input BAM file')
-parser.add_argument('bam2', type=str, help='second input BAM file')
+parser.add_argument('graft', type=str, help='graft BAM file')
+parser.add_argument('host', type=str, help='host BAM file')
 parser.add_argument('--count', dest='count', action='store_true', help='switch to reporting mode')
 parser.add_argument('--min', dest='min', type=int, help='minimum difference in matches for assignment to either file', default=1)
-parser.add_argument('--out', type=str, dest='out', help='first output BAM file', default='out.bam')
+parser.add_argument('--out', type=str, dest='out', help='graft output BAM file', default='graftOut.bam')
 parser.add_argument('--aligner', type=str, dest='aligner', help='aligner type', choices=['subread','subjunc','star','tophat','bowtie','bwa'], default='subread')
 parser.add_argument('--pairedEnd', dest='pairedEnd', action='store_true', help='switch to pairedEnd mode so the mapping scores will be computed using pairs')
 
 args = parser.parse_args()
 docount = args.count
-fh1 = pysam.Samfile(args.bam1, "rb")
-fh2 = pysam.Samfile(args.bam2, "rb")
+fh1 = pysam.Samfile(args.graft, "rb")
+fh2 = pysam.Samfile(args.host, "rb")
 if not docount:
     oh = pysam.Samfile(args.out, "wb", template=fh1)
     ohcount = ()
