@@ -11,7 +11,6 @@ parser.add_argument('host', type=str, help='host BAM file')
 parser.add_argument('--count', dest='count', action='store_true', help='switch to reporting mode')
 parser.add_argument('--min', dest='min', type=int, help='minimum difference in matches for assignment to either file', default=1)
 parser.add_argument('--out', type=str, dest='out', help='graft output BAM file', default='graftOut.bam')
-parser.add_argument('--aligner', type=str, dest='aligner', help='aligner type', choices=['subread','subjunc','star','tophat','bowtie','bwa'], default='subread')
 parser.add_argument('--pairedEnd', dest='pairedEnd', action='store_true', help='switch to pairedEnd mode so the mapping scores will be computed using pairs')
 
 args = parser.parse_args()
@@ -21,14 +20,7 @@ fh2 = pysam.Samfile(args.host, "rb")
 if not docount:
     oh = pysam.Samfile(args.out, "wb", template=fh1)
     ohcount = ()
-mismatch_flag={
-    "subread" : "NM",
-    "subjunc" : "NM",
-    "star" : "nM",
-    "bowtie" : "XM",
-    "tophat" : "XM",
-    "baw" : "XM"
-}[args.aligner]
+mismatch_flag="NM"
 
 def getmatch(read, flag):
     if read.is_unmapped:
